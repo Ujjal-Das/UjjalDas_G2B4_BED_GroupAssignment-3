@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket List</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Ticket List</h1>
+        
+        <!-- Display Tickets -->
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Creation Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr th:each="ticket : ${tickets}">
+                    <th scope="row" th:text="${ticket.id}"></th>
+                    <td th:text="${ticket.name}"></td>
+                    <td th:text="${ticket.description}"></td>
+                    <td th:text="${#temporals.format(ticket.creationDate, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/tickets/{id}/edit(id=${ticket.id})}">Edit</a>
+                        <a class="btn btn-danger" th:href="@{/tickets/{id}/delete(id=${ticket.id})}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+        <a class="btn btn-success" th:href="@{/tickets/create}">Create Ticket</a>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
